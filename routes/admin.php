@@ -4,7 +4,9 @@
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\Ajax;
 use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,8 +28,10 @@ Route::post('admin/loginSubmit', [Auth\AdminLoginController::class, 'login'])->n
 Route::get('admin/active-user', [Auth\AdminLoginController::class, 'showActiveUserForm'])->name("admin.active-user.index");
 Route::get('admin/load-active-user/{id}', [Auth\AdminLoginController::class, 'loadActiveUser'])->name("admin.user.load.role");
 Route::post('admin/change-password/{id}', [Auth\AdminLoginController::class, 'changePassword'])->name("admin.changePassword.update");
+Route::get('/apiBieuDo', [Admin\AdminHomeController::class, 'apiBieuDo'])->name("admin.apiBieuDo");
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
+
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
     Route::get('/', [Admin\AdminHomeController::class, 'index'])->name("admin.index");
 
@@ -76,5 +80,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admi
         Route::post('/update/{id}', [Admin\AdminRoomController::class, 'update'])->name("admin.room.update");
         Route::get('/delete/{id}', [Admin\AdminRoomController::class, 'delete'])->name("admin.room.delete");
     });
+
 });
 
